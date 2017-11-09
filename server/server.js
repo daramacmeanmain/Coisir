@@ -6,4 +6,4 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var cors = require('cors');
 
-mongoose.connect('mongodb://13.58.207.97/placeholder');
+mongoose.connect('mongodb://13.58.176.103/');
