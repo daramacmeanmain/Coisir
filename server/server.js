@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var cors = require('cors');
 
-mongoose.connect('mongodb://13.58.176.103/test');
+mongoose.connect('mongodb://13.58.176.103:27017/users');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
@@ -22,16 +22,16 @@ app.use(function(req, res, next) {
     next();
  });
 
-var test = mongoose.model('test', {
+var User = mongoose.model('User', {
     name: String,
     age: Number
 });
 
-app.get('/api/test', function(req, res) {
+app.get('/api/users', function(req, res) {
     
-           console.log("fetching test data");
+           console.log("fetching test user data");
 
-           test.find(function(err, test) {
+           User.find(function(err, users) {
     
                if (err)
                    res.send(err);
