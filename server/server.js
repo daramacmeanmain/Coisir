@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var cors = require('cors');
 
-mongoose.connect('mongodb://13.58.176.103:27017/users');
+mongoose.connect('mongodb://dara:/RqCTxIizS5b0bSPs8A9KBsy6lM=@ec2-13-58-176-103.us-east-2.compute.amazonaws.com:27017/userBase');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
@@ -36,9 +36,9 @@ app.get('/api/users', function(req, res) {
                if (err)
                    res.send(err);
     
-               res.json(test);
+               res.json(users);
            });
        });
 
-app.listen(8080);
+app.listen(8100);
 console.log("App listening on port 8080");

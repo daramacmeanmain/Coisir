@@ -7,15 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
+  The world is your oyster. (New Test)
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your giude.
   </p>
 
-  <ion-list>
-    <ion-item *ngFor="let user of users">
-      <h2>Name: {{user.name}}</h2>
-      <p>Age: {{user.age}}</p>
-    </ion-item>
+  <ion-list no lines>
+    <ion-item-sliding *ngFor="let user of users">
+      <ion-item>
+        <h2>Name: {{user.name}}</h2>
+        <p>Age: {{user.age}}</p>
+      </ion-item>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
