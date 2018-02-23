@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import PouchDB from 'pouchdb';
 import 'rxjs/add/operator/map';
 
 /*
@@ -12,9 +13,14 @@ import 'rxjs/add/operator/map';
 export class Users {
 
   data: any;
+  users: any;
 
   constructor(public http: Http) {
     this.data = null;
+  }
+
+  init(details){
+    
   }
 
   getUsers(){
@@ -24,7 +30,7 @@ export class Users {
 
       return new Promise(resolve => {
         
-             this.http.get('http://localhost:8080/api/users')
+             this.http.get('http://13.58.176.103:5984/hello-world/_all_docs')
                .map(res => res.json())
                .subscribe(data => {
                  this.data = data;

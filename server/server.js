@@ -1,44 +1,69 @@
 var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var morgan = require('morgan');
+var http = require('http');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override')
+var logger = require('morgan');
 var cors = require('cors');
-
-mongoose.connect('mongodb://dara:/RqCTxIizS5b0bSPs8A9KBsy6lM=@ec2-13-58-176-103.us-east-2.compute.amazonaws.com:27017/userBase');
-
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({'extended':'true'}));
+var SuperLogin = require('superlogin');
+ 
+var app = express();
+app.set('port', process.env.PORT || 3000);
+app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(methodOverride());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-
+ 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
- });
-
-var User = mongoose.model('User', {
-    name: String,
-    age: Number
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
 });
-
-app.get('/api/users', function(req, res) {
-    
-           console.log("fetching test user data");
-
-           User.find(function(err, users) {
-    
-               if (err)
-                   res.send(err);
-    
-               res.json(users);
-           });
-       });
-
-app.listen(8100);
-console.log("App listening on port 8080");
+ 
+var config = {
+  dbServer: {
+    protocol: 'http://',
+    host: '13.58.176.103:5984',
+    user: '',
+    password: '',
+    userDB: 'sl-users',
+    couchAuthDB: '_users'
+  },
+  mailer: {
+    fromEmail: 'gmail.user@gmail.com',
+    options: {
+      service: 'Gmail',
+        auth: {
+          user: 'gmail.user@gmail.com',
+          pass: 'userpass'
+        }
+    }
+  },
+  security: {
+    maxFailedLogins: 3,
+    lockoutTime: 600,
+    tokenLife: 86400,
+    loginOnRegistration: true,
+  },
+  userDBs: {
+    defaultDBs: {
+      private: ['supertest']
+    },
+    model: {
+      supertest: {
+        permissions: ['_reader', '_writer', '_replicator']
+      }
+    }
+  },
+  providers: {
+    local: true
+  }
+}
+ 
+// Initialize SuperLogin
+var superlogin = new SuperLogin(config);
+ 
+// Mount SuperLogin's routes to our app
+app.use('/auth', superlogin.router);
+ 
+app.listen(app.get('port'));
+console.log("App listening on " + app.get('port'));

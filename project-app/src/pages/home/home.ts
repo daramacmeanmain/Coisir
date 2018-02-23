@@ -15,6 +15,7 @@ export class HomePage {
 
   
   users: any;
+  data: any;
 
   constructor(public nav: NavController, public userService: Users) {
     
