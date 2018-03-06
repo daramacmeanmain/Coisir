@@ -14,29 +14,118 @@ export class Users {
 
   data: any;
   users: any;
+  db: any;
+  remote: any;
 
   constructor(public http: Http) {
     this.data = null;
   }
 
   init(details){
-    
+    this.db = new PouchDB('coisir');
+ 
+    this.remote = details.userDBs.supertest;
+ 
+    let options = {
+      live: true,
+      retry: true,
+      continuous: true
+    };
+ 
+    this.db.sync(this.remote, options);
+ 
+    console.log(this.db);
   }
 
-  getUsers(){
-    if(this.data){
+  logout(){
+ 
+    this.data = null;
+  }
+
+  getPosts(){
+
+    if (this.data) {
       return Promise.resolve(this.data);
     }
+ 
+    return new Promise(resolve => {
+ 
+      this.db.allDocs({
+ 
+        include_docs: true
+ 
+      }).then((result) => {
+ 
+        this.data = [];
+ 
+        let docs = result.rows.map((row) => {
+          this.data.push(row.doc);
+        });
+ 
+        resolve(this.data);
+ 
+        this.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
+          this.handleChange(change);
+        });
+ 
+      }).catch((error) => {
+ 
+        console.log(error);
+ 
+      });
+ 
+    });
 
-      return new Promise(resolve => {
-        
-             this.http.get('http://13.58.176.103:5984/hello-world/_all_docs')
-               .map(res => res.json())
-               .subscribe(data => {
-                 this.data = data;
-                 resolve(this.data);
-               });
-           });
+    }
+
+    createPost(post){
+      this.db.post(post);
+    }
+
+    updatePost(post){
+      this.db.put(post).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    deletePost(post){
+      this.db.remove(post).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    handleChange(change){
+ 
+      let changedDoc = null;
+      let changedIndex = null;
+   
+      this.data.forEach((doc, index) => {
+   
+        if(doc._id === change.id){
+          changedDoc = doc;
+          changedIndex = index;
+        }
+   
+      });
+   
+      //A document was deleted
+      if(change.deleted){
+        this.data.splice(changedIndex, 1);
+      }
+      else {
+   
+        //A document was updated
+        if(changedDoc){
+          this.data[changedIndex] = change.doc;
+        }
+   
+        //A document was added
+        else {
+          this.data.push(change.doc);
+        }
+   
+      }
+   
     }
 
 }

@@ -1,23 +1,37 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Coisir
     </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="createPost()"><ion-icon name="cloud-upload"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster. (New Test)
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your giude.
-  </p>
-
-  <ion-list no lines>
-      <h2>Test</h2>
-    <!--<ion-item-sliding *ngFor="let user of users">
+  <ion-list no-lines>
+ 
+    <ion-item-sliding *ngFor="let post of posts">
+ 
       <ion-item>
-        <h2>Test: {{users.data}}</h2>
+ 
+        {{post.title}}
+ 
       </ion-item>
-    </ion-item-sliding> -->
+ 
+      <ion-item-options>
+        <button ion-button icon-only color="light" (click)="updatePost(post)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-button icon-only color="primary" (click)="deletePost(post)">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+ 
   </ion-list>
 </ion-content>
