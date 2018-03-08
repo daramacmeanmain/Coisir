@@ -10,10 +10,11 @@ import 'rxjs/add/operator/map';
   and Angular DI.
 */
 @Injectable()
-export class Users {
+export class Coisir {
 
   data: any;
-  users: any;
+  user: any;
+  coisir: any;
   db: any;
   remote: any;
 
@@ -78,8 +79,9 @@ export class Users {
 
     }
 
-    createPost(post){
+    createPost(post, user){
       this.db.post(post);
+      this.db.post(user);
     }
 
     updatePost(post){

@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { NavController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
-import { Users } from '../../providers/users';
+import { Coisir } from '../../providers/coisir';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginPage {
   username: string;
   password: string;
 
-  constructor(public nav: NavController, public http: Http, public userService: Users) {
+  constructor(public nav: NavController, public http: Http, public coisirService: Coisir) {
   }
 
   login(){
@@ -29,7 +29,7 @@ export class LoginPage {
 
       this.http.post('http://localhost:3000/auth/login', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
-          this.userService.init(res.json());
+          this.coisirService.init(res.json());
           this.nav.setRoot(HomePage);
         }, (err) => {
           console.log(err);

@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Users } from '../../providers/users';
+import { Coisir } from '../../providers/coisir';
 import { LoginPage } from '../login/login';
+import { SignupPage } from '../signup/signup';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -14,25 +15,26 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HomePage {
 
-  
+  users: any;
   posts: any;
   data: any;
 
-  constructor(public nav: NavController, public userService: Users, public alertCtrl: AlertController) {
+  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController) {
     
      }
     
      ionViewDidLoad(){
     
-       this.userService.getPosts().then((data) => {
+       this.coisirService.getPosts().then((data) => {
          console.log(data);
          this.posts = data;
+         this.users = data;
        });
     
      }
 
      logout(){
-      this.userService.logout();
+      this.coisirService.logout();
       this.posts = null;
       this.nav.setRoot(LoginPage);
     }
@@ -53,7 +55,7 @@ export class HomePage {
           {
             text: 'Save',
             handler: data => {
-              this.userService.createPost({title: data.title});
+              this.coisirService.createPost({title: data.title}, {name: data.name});
             }
           }
         ]

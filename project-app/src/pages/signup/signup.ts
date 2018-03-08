@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { Users } from '../../providers/users';
+import { Coisir } from '../../providers/coisir';
 
 @Component({
   selector: 'page-signup',
@@ -16,14 +16,14 @@ export class SignupPage {
   password: string;
   confirmPassword: string;
 
-  constructor(public nav: NavController, public http: Http, public userService: Users) {
+  constructor(public nav: NavController, public http: Http, public coisirService: Coisir) {
   }
 
   register(){
     let headers = new Headers();
       headers.append('Content-Type', 'application/json');
  
-      let user = {
+      let users = {
         name: this.name,
         username: this.username,
         email: this.email,
@@ -31,9 +31,9 @@ export class SignupPage {
         confirmPassword: this.confirmPassword
       };
 
-      this.http.post('http://localhost:3000/auth/register', JSON.stringify(user), {headers: headers})
+      this.http.post('http://localhost:3000/auth/register', JSON.stringify(users), {headers: headers})
         .subscribe(res => {
-          this.userService.init(res.json());
+          this.coisirService.init(res.json());
           this.nav.setRoot(HomePage);
         }, (err) => {
           console.log(err);
