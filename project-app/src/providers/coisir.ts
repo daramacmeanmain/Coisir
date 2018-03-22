@@ -17,6 +17,7 @@ export class Coisir {
   coisir: any;
   db: any;
   remote: any;
+  post: any;
 
   constructor(public http: Http) {
     this.data = null;
@@ -24,7 +25,7 @@ export class Coisir {
 
   init(details){
     this.db = new PouchDB('coisir');
- 
+    this.user = details.userDBs.supertest;
     this.remote = details.userDBs.supertest;
  
     let options = {
@@ -33,9 +34,26 @@ export class Coisir {
       continuous: true
     };
  
-    this.db.sync(this.remote, options);
+    this.db.sync(this.remote, {
+      live: true
+    }).on('change', function (change) {
+      console.log(change);
+    }).on('error', function (err) {
+      console.log(err);
+    });
  
     console.log(this.db);
+  }
+
+  ionViewDidLoad(){
+    this.db.allDocs({
+ 
+      include_docs: true
+
+    }).then((result) => {
+
+      console.log(result);
+    });
   }
 
   logout(){
@@ -79,9 +97,8 @@ export class Coisir {
 
     }
 
-    createPost(post, user){
-      this.db.post(post);
-      this.db.post(user);
+    createPost(post){
+        this.db.post(post);
     }
 
     updatePost(post){

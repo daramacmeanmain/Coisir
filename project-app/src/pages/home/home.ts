@@ -15,11 +15,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HomePage {
 
-  users: any;
+  user: any;
   posts: any;
   data: any;
 
-  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController) {
+  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http) {
     
      }
     
@@ -28,7 +28,7 @@ export class HomePage {
        this.coisirService.getPosts().then((data) => {
          console.log(data);
          this.posts = data;
-         this.users = data;
+         this.user = this.coisirService.user;
        });
     
      }
@@ -55,13 +55,12 @@ export class HomePage {
           {
             text: 'Save',
             handler: data => {
-              this.coisirService.createPost({title: data.title}, {name: data.name});
+              this.coisirService.createPost({title: data.title});
             }
           }
         ]
       });
 
       prompt.present();
+      }
     }
-  
-  }
