@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Coisir } from '../../providers/coisir';
@@ -18,15 +18,18 @@ export class HomePage {
   user: any;
   posts: any;
   data: any;
+  //username: any;
+  uParam: any;
 
-  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http) {
-    
+  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http, public navParams: NavParams) {
+      
      }
     
      ionViewDidLoad(){
-    
+      this.uParam = this.navParams.get('username');
        this.coisirService.getPosts().then((data) => {
          console.log(data);
+         console.log(this.uParam);
          this.posts = data;
          this.user = this.coisirService.user;
        });
@@ -55,7 +58,7 @@ export class HomePage {
           {
             text: 'Save',
             handler: data => {
-              this.coisirService.createPost({title: data.title});
+              this.coisirService.createPost({title: data.title, uParam: this.uParam});
             }
           }
         ]

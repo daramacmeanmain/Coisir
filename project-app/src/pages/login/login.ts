@@ -29,8 +29,12 @@ export class LoginPage {
 
       this.http.post('http://localhost:3000/auth/login', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
+          let result = res.json();
+          let uPush = result["user_id"];
+          console.log(res.json())
+          console.log(result["user_id"]);
           this.coisirService.init(res.json());
-          this.nav.setRoot(HomePage);
+          this.nav.setRoot(HomePage, {username: this.username});
         }, (err) => {
           console.log(err);
         });

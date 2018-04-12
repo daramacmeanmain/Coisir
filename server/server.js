@@ -46,7 +46,7 @@ var config = {
   },
   userDBs: {
     defaultDBs: {
-      //private: ['supertest']
+      private: ['supertest']
     },
     model: {
       supertest: {

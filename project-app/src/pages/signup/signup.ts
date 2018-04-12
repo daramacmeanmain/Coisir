@@ -33,8 +33,11 @@ export class SignupPage {
 
       this.http.post('http://localhost:3000/auth/register', JSON.stringify(users), {headers: headers})
         .subscribe(res => {
+          let result = res.json();
+          console.log(res.json());
+          console.log(result["user_id"]);
           this.coisirService.init(res.json());
-          this.nav.setRoot(HomePage);
+          this.nav.setRoot(HomePage, result["user_id"]);
         }, (err) => {
           console.log(err);
         });

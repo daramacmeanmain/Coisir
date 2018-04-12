@@ -18,6 +18,7 @@ export class Coisir {
   db: any;
   remote: any;
   post: any;
+  uid: any;
 
   constructor(public http: Http) {
     this.data = null;
@@ -26,6 +27,8 @@ export class Coisir {
   init(details){
     this.db = new PouchDB('coisir');
     this.user = details.userDBs.supertest;
+    
+    //might cause a problem
     this.remote = details.userDBs.supertest;
  
     let options = {
@@ -78,7 +81,9 @@ export class Coisir {
         this.data = [];
  
         let docs = result.rows.map((row) => {
-          this.data.push(row.doc);
+
+        this.data.push(row.doc);
+          
         });
  
         resolve(this.data);
