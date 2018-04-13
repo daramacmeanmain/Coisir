@@ -18,7 +18,7 @@ export class HomePage {
   user: any;
   posts: any;
   data: any;
-  //username: any;
+  username: any;
   uParam: any;
 
   constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http, public navParams: NavParams) {
@@ -32,6 +32,8 @@ export class HomePage {
          console.log(this.uParam);
          this.posts = data;
          this.user = this.coisirService.user;
+         this.username = this.uParam;
+         console.log(this.username)
        });
     
      }

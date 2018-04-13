@@ -17,8 +17,9 @@
  
     <ion-item-sliding *ngFor="let post of posts">
 
-      <ion-item>
+      <ion-item *ngIf="uParam == username">
         {{post.title}}
+        {{post.uParam}}
       </ion-item>
  
       <ion-item-options>

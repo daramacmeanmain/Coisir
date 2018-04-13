@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import PouchDB from 'pouchdb';
+import PouchDBFind from 'pouchdb-find';
 import 'rxjs/add/operator/map';
 
 /*
@@ -22,6 +23,7 @@ export class Coisir {
 
   constructor(public http: Http) {
     this.data = null;
+    PouchDB.plugin(PouchDBFind);
   }
 
   init(details){
@@ -70,7 +72,26 @@ export class Coisir {
       return Promise.resolve(this.data);
     }
  
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
+
+      /*this.db.find({
+        selector: {
+            uParam: this.uid
+        }
+        }).then((res) => {
+            resolve(res.docs[0]);
+        }).catch((err) => { 
+            reject(err);
+        })
+
+      /*this.db.createIndex({
+        index: {fields: ['uParam']}
+      }).then(function () {
+        return this.db.find({
+          selector: {series: {$eq: 'dara123'}},
+          sort: [{uParam: 'desc'}]
+        });
+      });*/
  
       this.db.allDocs({
  
@@ -81,6 +102,8 @@ export class Coisir {
         this.data = [];
  
         let docs = result.rows.map((row) => {
+
+          
 
         this.data.push(row.doc);
           
@@ -97,6 +120,14 @@ export class Coisir {
         console.log(error);
  
       });
+
+      /*this.db.query(function (doc, emit) {
+        emit(doc.uParam);
+      }, {key: 'dara123'}).then(function (result) {
+        // found docs with name === 'foo'
+      }).catch(function (err) {
+        // handle any errors
+      });*/
  
     });
 
