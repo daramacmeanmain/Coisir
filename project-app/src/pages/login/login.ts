@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { Coisir } from '../../providers/coisir';
+import { LoadingController } from 'ionic-angular';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginPage {
   username: string;
   password: string;
 
-  constructor(public nav: NavController, public http: Http, public coisirService: Coisir) {
+  constructor(public nav: NavController, public http: Http, public coisirService: Coisir, public loadingCtrl: LoadingController) {
   }
 
   login(){
@@ -38,6 +39,16 @@ export class LoginPage {
         }, (err) => {
           console.log(err);
         });
+
+        this.presentLoading();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Logging In",
+      duration: 2000
+    });
+    loader.present();
   }
 
   launchSignup(){

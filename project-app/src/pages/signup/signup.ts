@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Coisir } from '../../providers/coisir';
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'page-signup',
@@ -16,7 +17,7 @@ export class SignupPage {
   password: string;
   confirmPassword: string;
 
-  constructor(public nav: NavController, public http: Http, public coisirService: Coisir) {
+  constructor(public nav: NavController, public http: Http, public coisirService: Coisir, public loadingCtrl: LoadingController) {
   }
 
   register(){
@@ -41,6 +42,16 @@ export class SignupPage {
         }, (err) => {
           console.log(err);
         });
+
+        this.presentLoading();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Creating Account",
+      duration: 2000
+    });
+    loader.present();
   }
 
   ionViewDidLoad() {
