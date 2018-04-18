@@ -28,16 +28,6 @@ var config = {
     userDB: 'sl-users',
     couchAuthDB: '_users'
   },
-  mailer: {
-    fromEmail: 'gmail.user@gmail.com',
-    options: {
-      service: 'Gmail',
-        auth: {
-          user: 'gmail.user@gmail.com',
-          pass: 'userpass'
-        }
-    }
-  },
   security: {
     maxFailedLogins: 3,
     lockoutTime: 600,

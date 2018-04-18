@@ -37,7 +37,7 @@ export class SignupPage {
           console.log(res.json());
           console.log(result["user_id"]);
           this.coisirService.init(res.json());
-          this.nav.setRoot(HomePage, result["user_id"]);
+          this.nav.setRoot(HomePage, {username: this.username});
         }, (err) => {
           console.log(err);
         });
