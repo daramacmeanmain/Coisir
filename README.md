@@ -2,6 +2,8 @@
 
 ## Installation and Configuration
 
+### The following instructions are for launching the application in a web browser only, as the app currently doesn't function correctly when running on a mobile device.
+
 In order to run this application in a  web browser, the following components must be installed. 
 
 * Node.js
