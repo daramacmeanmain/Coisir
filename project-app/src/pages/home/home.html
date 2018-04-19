@@ -1,11 +1,8 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Coisir | Hi, {{uParam}}
+      Cóisir | Hi, {{uParam}}
     </ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="createPost()"><ion-icon name="cloud-upload"></ion-icon></button>
-    </ion-buttons>
     <ion-buttons end>
       <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
     </ion-buttons>
@@ -39,4 +36,9 @@
     </ion-item-sliding>
  
   </ion-list>
+
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="createPost()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
 </ion-content>
