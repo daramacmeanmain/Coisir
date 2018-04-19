@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Coisir } from '../../providers/coisir';
 import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-signup',
@@ -17,7 +18,16 @@ export class SignupPage {
   password: string;
   confirmPassword: string;
 
-  constructor(public nav: NavController, public http: Http, public coisirService: Coisir, public loadingCtrl: LoadingController) {
+  constructor(private alertCtrl: AlertController, public nav: NavController, public http: Http, public coisirService: Coisir, public loadingCtrl: LoadingController) {
+  }
+
+  presentError(errorMessage: string) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: errorMessage,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 
   register(){
@@ -39,11 +49,12 @@ export class SignupPage {
           console.log(result["user_id"]);
           this.coisirService.init(res.json());
           this.nav.setRoot(HomePage, {username: this.username});
+          this.presentLoading();
         }, (err) => {
+          let jsonMessage = JSON.parse(err._body)
           console.log(err);
+          this.presentError(jsonMessage.error);
         });
-
-        this.presentLoading();
   }
 
   presentLoading() {

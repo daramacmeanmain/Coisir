@@ -38,6 +38,15 @@ export class HomePage {
     
      }
 
+     presentError(errorMessage: string) {
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        subTitle: errorMessage,
+        buttons: ['Dismiss']
+      });
+      alert.present();
+    }
+
      logout(){
       this.coisirService.logout();
       this.posts = null;
