@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { ActionSheetController } from 'ionic-angular'
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Coisir } from '../../providers/coisir';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import 'rxjs/add/operator/map';
+import { OptionsPage } from '../options/options';
 
 @Component({
   selector: 'page-home',
@@ -16,12 +18,15 @@ import 'rxjs/add/operator/map';
 export class HomePage {
 
   user: any;
+  post: any;
   posts: any;
   data: any;
   username: any;
   uParam: any;
+  pParam: any;
+  pId: any;
 
-  constructor(public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public nav: NavController, public coisirService: Coisir, public alertCtrl: AlertController, public http: Http, public navParams: NavParams) {
       
      }
     
@@ -30,13 +35,44 @@ export class HomePage {
        this.coisirService.getPosts().then((data) => {
          console.log(data);
          console.log(this.uParam);
+         //this.pId = this.data["_id"];
+         //console.log(this.pId)
          this.posts = data;
          this.user = this.coisirService.user;
          this.username = this.uParam;
          console.log(this.username)
+         //console.log(this.post._id)
        });
     
      }
+
+     presentModal() {
+      let modal = this.modalCtrl.create(OptionsPage);
+      //let pId = this.data._id;
+      //console.log(this.pId)
+      this.nav.push(OptionsPage, {post_id: this.pId});
+      modal.present();
+    }
+
+    presentActionSheet(data) {
+      //this.pParam = this.navParams.get('post._id');
+      //console.log(this.pParam);
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Options',
+          buttons: [
+            {
+              text: 'Delete',
+              handler: () => {
+                console.log('delete clicked');
+                this.coisirService.deletePost(this.pParam)
+              }
+            }
+          ]
+      });
+
+      actionSheet.present();
+    }
+
 
      presentError(errorMessage: string) {
       let alert = this.alertCtrl.create({
