@@ -35,3 +35,7 @@ Once either choosing "Login" or "Register", you will be brought to the Home scre
 
 Selecting "+" on the home screen brings up an alert where you can enter a new post. Here you can type in the message you want to send and either select "Save" to post it, or "Cancel" to return.
 ![post](https://i.imgur.com/RAxG86K.png)
+
+## Demo
+
+A video demo can be found [here](https://www.youtube.com/watch?v=GF2kqOdxK3E).
