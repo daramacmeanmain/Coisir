@@ -49,10 +49,8 @@ var config = {
   }
 }
  
-// Initialize SuperLogin
 var superlogin = new SuperLogin(config);
  
-// Mount SuperLogin's routes to our app
 app.use('/auth', superlogin.router);
  
 app.listen(app.get('port'));

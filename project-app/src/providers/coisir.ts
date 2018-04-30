@@ -110,12 +110,6 @@ export class Coisir {
         this.db.post(post);
     }
 
-    updatePost(post){
-      this.db.put(post).catch((err) => {
-        console.log(err);
-      });
-    }
-
     deletePost(post){
       this.db.remove(post).catch((err) => {
         console.log(err);
