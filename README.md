@@ -15,7 +15,7 @@ Node.js can be downloaded [here](http://nodejs.org/), select a version to downlo
 
 Once Ionic is installed, the git repository can be then cloned onto your PC to a directory of your choosing. Once this is complete, perform a `cd` command into the directory where you cloned the repository and then `cd` again into the server directory. Once there run the following command,
 
-`$node server.js`, to activate the node server. Then in a new command prompt window, navigate to the same directory as before to enter the project-app directory. In there run the following command,
+`$ node server.js`, to activate the node server. Then in a new command prompt window, navigate to the same directory as before to enter the project-app directory. In there run the following command,
 
 `$ ionic serve`, which will run the application in your browser.
 
