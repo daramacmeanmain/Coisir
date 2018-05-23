@@ -46,6 +46,12 @@ export class HomePage {
     
      }
 
+     getId(){
+      this.pId = this.navParams.get('pId');
+      //this.nav.setRoot(HomePage, {username: this.username});
+      console.log(this.pId);
+    }
+
      presentModal() {
       let modal = this.modalCtrl.create(OptionsPage);
       //let pId = this.data._id;
@@ -54,9 +60,7 @@ export class HomePage {
       modal.present();
     }
 
-    presentActionSheet(data) {
-      //this.pParam = this.navParams.get('post._id');
-      //console.log(this.pParam);
+    presentActionSheet(post) {
       let actionSheet = this.actionSheetCtrl.create({
         title: 'Options',
           buttons: [
@@ -64,7 +68,38 @@ export class HomePage {
               text: 'Delete',
               handler: () => {
                 console.log('delete clicked');
-                this.coisirService.deletePost(this.pParam)
+                this.coisirService.deletePost(post)
+              }
+            },
+            {
+              text: 'Edit',
+              handler: () => {
+                let prompt = this.alertCtrl.create({
+                  title: 'Edit Post',
+                  inputs: [
+                    {
+                      name: 'title'
+                    }
+                  ],
+                  buttons: [
+                    {
+                      text: 'Cancel'
+                    },
+                    {
+                      text: 'Save',
+                      handler: data => {
+                        this.coisirService.updatePost({
+                          _id: post._id,
+                          _rev: post._rev,
+                          title: data.title,
+                          uParam: this.uParam
+                        });
+                      }
+                    }
+                  ]
+                });
+             
+                prompt.present();
               }
             }
           ]
@@ -112,5 +147,9 @@ export class HomePage {
       });
 
       prompt.present();
+      }
+
+      deletePost(post){
+        this.coisirService.deletePost(post)
       }
     }

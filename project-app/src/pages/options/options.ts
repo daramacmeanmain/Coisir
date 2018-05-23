@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Coisir } from '../../providers/coisir';
 
 /**
  * Generated class for the OptionsPage page.
@@ -16,13 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class OptionsPage {
 
   pParam: any;
+  pId: any;
+  post: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public coisirService: Coisir) {
   }
 
   ionViewDidLoad() {
     this.pParam = this.navParams.get('post_id');
     console.log(this.pParam);
+  }
+
+  delPost(post){
+    post = this.pId;
+    console.log(post)
+    this.coisirService.deletePost(post)
   }
 
 }

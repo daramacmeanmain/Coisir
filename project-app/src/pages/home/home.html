@@ -12,29 +12,19 @@
 <ion-content padding>
   <ion-list no-lines>
  
-    <ion-item-sliding *ngFor="let post of posts">
+    <ion-item *ngFor="let post of posts">
 
       <ion-item *ngIf="uParam == username">
-          <ion-card>
+          <ion-card (click)="presentActionSheet(post)">
               <ion-card-header>
                   <b>{{post.uParam}}</b>
               </ion-card-header>
               <ion-card-content>
                   {{post.title}}
-                  <div style="display:none;">{{post._id}}</div>
                 </ion-card-content>
             </ion-card>
       </ion-item>
- 
-      <ion-item-options>
-        <button ion-button icon-only color="light" (click)="updatePost(post)">
-          <ion-icon name="create"></ion-icon>
-        </button>
-        <button ion-button icon-only color="primary" (click)="deletePost(post)">
-          <ion-icon name="checkmark"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+    </ion-item>
  
   </ion-list>
 

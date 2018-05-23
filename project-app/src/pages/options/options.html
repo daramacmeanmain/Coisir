@@ -14,5 +14,11 @@
 
 
 <ion-content padding>
-
+  <ion-item>
+    <ion-label><ion-icon name="person"></ion-icon></ion-label>
+    <ion-input [(ngModel)]="pId" placeholder="ID" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button (click)="delPost(post)" primary class="login-button">Delete</button>
+  </ion-item>
 </ion-content>

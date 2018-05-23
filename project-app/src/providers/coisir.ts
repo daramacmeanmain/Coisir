@@ -114,6 +114,16 @@ export class Coisir {
       this.db.remove(post).catch((err) => {
         console.log(err);
       });
+
+      //this.db.get('01e4d8e0-d6c2-4785-85e6-20652abe4822').then(function(doc) {
+      //  return this.db.remove(doc);
+      //});
+    }
+
+    updatePost(post){
+      this.db.put(post).catch((err) => {
+        console.log(err);
+      });
     }
 
     handleChange(change){
