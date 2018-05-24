@@ -38,6 +38,16 @@ Once either choosing "Login" or "Register", you will be brought to the Home scre
 Selecting "+" on the home screen brings up an alert where you can enter a new post. Here you can type in the message you want to send and either select "Save" to post it, or "Cancel" to return.
 ![post](https://i.imgur.com/RAxG86K.png)
 
+Tapping or clicking on a post will bring up the available options for it. You can either edit a post or delete it.
+![options](https://i.imgur.com/Cyzc55h.png)
+
+Selecting edit will prompt the user to enter a new string to update the post
+![edit](https://i.imgur.com/D86tQUz.png) ![newedit](https://i.imgur.com/C3oSrsx.png)
+
+And selecting delete will remove the post
+
+![delete](https://i.imgur.com/XfzEIbQ.png)
+
 ## Demo
 
 A video demo can be found [here](https://www.youtube.com/watch?v=GF2kqOdxK3E).
